@@ -18,7 +18,7 @@ MonoBehaviour:
     value: 1
   gradingMode:
     overrideState: 1
-    value: 0
+    value: 1
   externalLut:
     overrideState: 0
     value: {fileID: 0}
@@ -28,10 +28,10 @@ MonoBehaviour:
     value: 3
   toneCurveToeStrength:
     overrideState: 1
-    value: 0
+    value: 0.55
   toneCurveToeLength:
     overrideState: 1
-    value: 0.5
+    value: 0.366
   toneCurveShoulderStrength:
     overrideState: 0
     value: 0
@@ -1348,10 +1348,10 @@ MonoBehaviour:
     value: 0
   intensity:
     overrideState: 1
-    value: 3
+    value: 1.44
   color:
     overrideState: 1
-    value: {r: 0.05286579, g: 0.106215924, b: 0.33962262, a: 1}
+    value: {r: 0, g: 0.014278448, b: 0.0754717, a: 1}
   ambientOnly:
     overrideState: 0
     value: 1
@@ -1375,7 +1375,7 @@ MonoBehaviour:
     value: 0.5
   quality:
     overrideState: 1
-    value: 1
+    value: 4
 --- !u!114 &114934171140021752
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1394,19 +1394,19 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 2
+    value: 0.46
   threshold:
     overrideState: 1
-    value: 1
+    value: 3.11
   softKnee:
     overrideState: 1
-    value: 0.5
+    value: 1
   clamp:
     overrideState: 1
     value: 65472
   diffusion:
     overrideState: 1
-    value: 5
+    value: 6.78
   anamorphicRatio:
     overrideState: 0
     value: 0
