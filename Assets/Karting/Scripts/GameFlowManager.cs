@@ -53,11 +53,6 @@ public class GameFlowManager : MonoBehaviour
 
     void Start()
     {
-
-        if (isGameEnded) return;
-        isGameEnded = true;
-        ghostManager.recording = true;
-
         if (autoFindKarts)
         {
             karts = FindObjectsOfType<ArcadeKart>();
@@ -103,6 +98,8 @@ public class GameFlowManager : MonoBehaviour
         ghostManager.recording = true;
         ghostManager.playing = false;
 
+        Follow();
+
         foreach (ArcadeKart k in karts)
         {
             k.SetCanMove(true);
@@ -130,7 +127,6 @@ public class GameFlowManager : MonoBehaviour
 
     void Update()
     {
-        ghostManager.playing = true;
 
         if (gameState != GameState.Play)
         {
@@ -163,6 +159,14 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
+    IEnumerator Follow()
+    {
+        yield return new WaitForSeconds(3f);
+
+        ghostManager.recording = false;
+        ghostManager.playing = true;
+    }
+
     void EndGame(bool win)
     {
 
@@ -170,6 +174,12 @@ public class GameFlowManager : MonoBehaviour
         {
             endGameFinal(win);
         }
+
+        if (isGameEnded) return;
+        isGameEnded = true;
+        ghostManager.recording = false;
+        ghostManager.playing = true;
+
     }
 
     void endGameFinal(bool win)

@@ -28,7 +28,7 @@ public class GhostManager : MonoBehaviour
     public Transform ghostKart;
     public Transform cameraPlaceholder;
     public CinemachineVirtualCamera cinemaCam;
-    #endregion
+
     public bool recording;
     public bool playing;
     public bool isGhostEnd;
@@ -37,6 +37,7 @@ public class GhostManager : MonoBehaviour
     private List<GhostTransform> recordedGhostTransforms = new List<GhostTransform>();
     private GhostTransform lastRecordedGhostTransform;
 
+    #endregion
 
     #region Unity Mehods
 
@@ -59,6 +60,7 @@ public class GhostManager : MonoBehaviour
         {
             Play();
         }
+
     }
 
 
@@ -106,5 +108,7 @@ public class GhostManager : MonoBehaviour
 
         isRecordingStarted = false;
     }
+
+
     #endregion
 }
