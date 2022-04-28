@@ -4,7 +4,7 @@ using UnityEngine.Playables;
 using KartGame.KartSystems;
 using UnityEngine.SceneManagement;
 
-public enum GameState{Play, Won, Lost}
+public enum GameState { Play, Won, Lost }
 
 public class GameFlowManager : MonoBehaviour
 {
@@ -48,8 +48,16 @@ public class GameFlowManager : MonoBehaviour
     string m_SceneToLoad;
     float elapsedTimeBeforeEndScene = 0;
 
+    public GhostManager ghostManager;
+    private bool isGameEnded;
+
     void Start()
     {
+
+        if (isGameEnded) return;
+        isGameEnded = true;
+        ghostManager.recording = true;
+
         if (autoFindKarts)
         {
             karts = FindObjectsOfType<ArcadeKart>();
@@ -61,7 +69,7 @@ public class GameFlowManager : MonoBehaviour
         }
 
         m_ObjectiveManager = FindObjectOfType<ObjectiveManager>();
-		DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
+        DebugUtility.HandleErrorIfNullFindObject<ObjectiveManager, GameFlowManager>(m_ObjectiveManager, this);
 
         m_TimeManager = FindObjectOfType<TimeManager>();
         DebugUtility.HandleErrorIfNullFindObject<TimeManager, GameFlowManager>(m_TimeManager, this);
@@ -74,7 +82,7 @@ public class GameFlowManager : MonoBehaviour
         m_TimeManager.StopRace();
         foreach (ArcadeKart k in karts)
         {
-			k.SetCanMove(false);
+            k.SetCanMove(false);
         }
 
         //run race countdown animation
@@ -84,42 +92,50 @@ public class GameFlowManager : MonoBehaviour
         StartCoroutine(CountdownThenStartRaceRoutine());
     }
 
-    IEnumerator CountdownThenStartRaceRoutine() {
+    IEnumerator CountdownThenStartRaceRoutine()
+    {
         yield return new WaitForSeconds(3f);
         StartRace();
     }
 
-    void StartRace() {
+    void StartRace()
+    {
+        ghostManager.recording = true;
+        ghostManager.playing = false;
+
         foreach (ArcadeKart k in karts)
         {
-			k.SetCanMove(true);
+            k.SetCanMove(true);
         }
         m_TimeManager.StartRace();
     }
 
-    void ShowRaceCountdownAnimation() {
+    void ShowRaceCountdownAnimation()
+    {
         raceCountdownTrigger.Play();
     }
 
-    IEnumerator ShowObjectivesRoutine() {
+    IEnumerator ShowObjectivesRoutine()
+    {
         while (m_ObjectiveManager.Objectives.Count == 0)
             yield return null;
         yield return new WaitForSecondsRealtime(0.2f);
         for (int i = 0; i < m_ObjectiveManager.Objectives.Count; i++)
         {
-           if (m_ObjectiveManager.Objectives[i].displayMessage)m_ObjectiveManager.Objectives[i].displayMessage.Display();
-           yield return new WaitForSecondsRealtime(1f);
+            if (m_ObjectiveManager.Objectives[i].displayMessage) m_ObjectiveManager.Objectives[i].displayMessage.Display();
+            yield return new WaitForSecondsRealtime(1f);
         }
     }
 
 
     void Update()
     {
+        ghostManager.playing = true;
 
         if (gameState != GameState.Play)
         {
             elapsedTimeBeforeEndScene += Time.deltaTime;
-            if(elapsedTimeBeforeEndScene >= endSceneLoadDelay)
+            if (elapsedTimeBeforeEndScene >= endSceneLoadDelay)
             {
 
                 float timeRatio = 1 - (m_TimeLoadEndGameScene - Time.time) / endSceneLoadDelay;
@@ -149,6 +165,16 @@ public class GameFlowManager : MonoBehaviour
 
     void EndGame(bool win)
     {
+
+        if (ghostManager.isGhostEnd)
+        {
+            endGameFinal(win);
+        }
+    }
+
+    void endGameFinal(bool win)
+    {
+
         // unlocks the cursor before leaving the scene, to be able to click buttons
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
