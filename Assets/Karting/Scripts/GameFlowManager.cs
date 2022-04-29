@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using KartGame.KartSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public enum GameState { Play, Won, Lost }
 
@@ -38,6 +39,18 @@ public class GameFlowManager : MonoBehaviour
 
     public GameState gameState { get; private set; }
 
+    public ArcadeKart.Stats boostSpeed = new ArcadeKart.Stats
+    {
+        TopSpeed = 20
+    };
+
+    public ArcadeKart.StatPowerup boostStats = new ArcadeKart.StatPowerup
+    {
+        MaxTime = 5
+    };
+
+    public UnityEvent onPowerupActivated;
+
     public bool autoFindKarts = true;
     public ArcadeKart playerKart;
 
@@ -50,6 +63,7 @@ public class GameFlowManager : MonoBehaviour
 
     public GhostManager ghostManager;
     private bool isGameEnded;
+    private bool boost;
 
     void Start()
     {
@@ -128,6 +142,8 @@ public class GameFlowManager : MonoBehaviour
     void Update()
     {
 
+        BoostSpeed();
+
         if (gameState != GameState.Play)
         {
             elapsedTimeBeforeEndScene += Time.deltaTime;
@@ -165,6 +181,35 @@ public class GameFlowManager : MonoBehaviour
 
         ghostManager.recording = false;
         ghostManager.playing = true;
+    }
+
+    void BoostSpeed()
+    {
+        var arcadeKart = new ArcadeKart();
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.Space))
+        {
+            boost = true;
+            arcadeKart.m_vfxActive = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.Space))
+        {
+            boost = false;
+            arcadeKart.m_vfxActive = false;
+        }
+
+        if (boost)
+        {
+            arcadeKart.AddPowerup(this.boostStats);
+
+            onPowerupActivated.Invoke();
+            // arcadeKart.AddSpeedup(this.boostSpeed);
+            // foreach (ArcadeKart k in karts)
+            // {
+            //     k.AddSpeedup(this.boostSpeed);
+            // }
+            Debug.Log("Boost Speed");
+        }
     }
 
     void EndGame(bool win)
