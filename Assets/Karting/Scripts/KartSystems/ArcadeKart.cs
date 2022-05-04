@@ -416,7 +416,16 @@ namespace KartGame.KartSystems
             }
         }
 
-        void OnCollisionEnter(Collision collision) => m_HasCollision = true;
+        void OnCollisionEnter(Collision collision) =>
+            m_HasCollision = true;
+
+        // if(collision.gameObject.tag != "Road")
+        // {
+        //     Debug.Log("ra ngoai");
+        // }
+
+
+
         void OnCollisionExit(Collision collision) => m_HasCollision = false;
 
         void OnCollisionStay(Collision collision)

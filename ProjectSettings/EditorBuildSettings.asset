@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scence/IntroMenu.unity
     guid: d29260d8d84c94bd7ac95807b3da99d4
   - enabled: 1
-    path: Assets/Scence/MainScene.unity
-    guid: 92786e23da2af4a4f8803aaf44c47121
+    path: Assets/Scence/Level 2.unity
+    guid: 628ccef0e02569e4abe903b16befe593
   - enabled: 1
     path: Assets/Scence/LoseScene.unity
     guid: 9c449e01147824b419cda406398fb2e7
