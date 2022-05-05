@@ -55,9 +55,9 @@ public class GameFlowManager : MonoBehaviour
     public ArcadeKart playerKart;
 
     ArcadeKart[] karts;
-    ObjectiveManager m_ObjectiveManager;
+    ObjectiveManager m_ObjectiveManager; 
     TimeManager m_TimeManager;
-    float m_TimeLoadEndGameScene;
+    float m_TimeLoadEndGameScene;  
     string m_SceneToLoad;
     float elapsedTimeBeforeEndScene = 0;
 
