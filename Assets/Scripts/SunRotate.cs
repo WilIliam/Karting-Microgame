@@ -14,6 +14,9 @@ public class SunRotate : MonoBehaviour
     public GameObject sun;
     public Light sunLight;
 
+    public Light leftLigt;
+    public Light rightLigt;
+
     [Range(0, 6)]
     public float timeOfDay = 6;
 
@@ -24,6 +27,8 @@ public class SunRotate : MonoBehaviour
     public float secondsPerDay;
 
     public float timeMultiplier = 1000;
+    [Range(0, 20)]
+    public float powerOfLight;
     #endregion
 
     #region Unity Mehods
@@ -42,6 +47,7 @@ public class SunRotate : MonoBehaviour
     void Update()
     {
         SunUpdate();
+        LightUpdate();
 
         timeOfDay += ((Time.deltaTime + 2) / secondsPerDay) * timeMultiplier;
 
@@ -58,6 +64,33 @@ public class SunRotate : MonoBehaviour
     public void SunUpdate()
     {
         sun.transform.localRotation = Quaternion.Euler(timeOfDay * 360 * timeMultiplier + 1, 0, 0);
+    }
+
+    void LightUpdate()
+    {
+
+        powerOfLight = timeOfDay * 360 * timeMultiplier + 1;
+
+
+        if (leftLigt.range >= 20 && rightLigt.range >= 20)
+        {
+            powerOfLight = 0;
+            leftLigt.range = 0;
+            rightLigt.range = 0;
+        }
+
+        if (powerOfLight >= 20)
+        {
+            leftLigt.range = 20 * timeOfDay;
+            rightLigt.range = 20 * timeOfDay;
+        }
+        else
+        {
+            leftLigt.range = powerOfLight;
+            rightLigt.range = powerOfLight;
+        }
+
+
     }
     #endregion
 }

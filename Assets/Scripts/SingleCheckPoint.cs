@@ -18,7 +18,7 @@ public class SingleCheckPoint : MonoBehaviour
 
     private void Start()
     {
-        // Hide();
+        Hide();
     }
 
     private void Awake()
@@ -28,11 +28,10 @@ public class SingleCheckPoint : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.tag == "Player")
         {
             Debug.Log(this, other.transform);
-            trackCheckPoint.GoingThroughCheckPoint(this,other.transform);
+            trackCheckPoint.GoingThroughCheckPoint(this, other.transform);
         }
 
 
@@ -57,5 +56,7 @@ public class SingleCheckPoint : MonoBehaviour
     {
         meshRenderer.enabled = false;
     }
+
+    
     #endregion
 }

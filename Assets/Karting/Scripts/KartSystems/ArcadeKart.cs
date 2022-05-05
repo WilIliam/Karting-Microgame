@@ -76,7 +76,6 @@ namespace KartGame.KartSystems
         public InputData Input { get; private set; }
         public float AirPercent { get; private set; }
         public float GroundPercent { get; private set; }
-
         public ArcadeKart.Stats baseStats = new ArcadeKart.Stats
         {
             TopSpeed = 10f,
@@ -295,9 +294,6 @@ namespace KartGame.KartSystems
             }
             m_VfxSmoke.SetActive(false);
 
-
-
-
             UpdateSuspensionParams(FrontLeftWheel);
             UpdateSuspensionParams(FrontRightWheel);
             UpdateSuspensionParams(RearLeftWheel);
@@ -336,9 +332,6 @@ namespace KartGame.KartSystems
 
             UpdateDriftVFXOrientation();
         }
-
-
-
 
         void GatherInputs()
         {
@@ -416,15 +409,7 @@ namespace KartGame.KartSystems
             }
         }
 
-        void OnCollisionEnter(Collision collision) =>
-            m_HasCollision = true;
-
-        // if(collision.gameObject.tag != "Road")
-        // {
-        //     Debug.Log("ra ngoai");
-        // }
-
-
+        void OnCollisionEnter(Collision collision) => m_HasCollision = true;
 
         void OnCollisionExit(Collision collision) => m_HasCollision = false;
 

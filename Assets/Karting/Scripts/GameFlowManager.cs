@@ -141,7 +141,6 @@ public class GameFlowManager : MonoBehaviour
 
     void Update()
     {
-
         BoostSpeed();
 
         if (gameState != GameState.Play)
@@ -183,6 +182,7 @@ public class GameFlowManager : MonoBehaviour
         ghostManager.playing = true;
     }
 
+
     void BoostSpeed()
     {
         var arcadeKart = new ArcadeKart();
@@ -208,7 +208,7 @@ public class GameFlowManager : MonoBehaviour
             // {
             //     k.AddSpeedup(this.boostSpeed);
             // }
-            Debug.Log("Boost Speed");
+            //Debug.Log("Boost Speed");
         }
     }
 
